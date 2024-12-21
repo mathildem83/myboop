@@ -1,0 +1,131 @@
+<div class="container-all">
+  <div class="banner">
+    <div class="container text-end">
+      <h1>Adopter avec amour,</h1>
+      <h1>accompagner avec soin.</h1>
+      <%= link_to animals_path, class: "btn btn-primary btn-spa text-white p-3 mt-4 text-end shadow", style:"border-radius: 32px;" do%>
+        <span class="icon-custom">🐾</span> Je veux adopter !
+      <%end%>
+    </div>
+  </div>
+  <%= simple_form_for :search, url: professionals_path, method: :get do |f| %>
+    <div class="d-flex justify-content-center search-form-control form-group mb-3", style="width: 100%;" >
+      <div class="d-flex align-items-center search-form-control form-group w-form">
+        <%= text_field_tag :query,
+              params[:query],
+              class: "form-control search-bar bg-secondary ps-5",
+              placeholder: "Rechercher un service..."
+          %>
+        <div>
+          <%= submit_tag "Rechercher", class: "btn btn-primary text-white search-bar p-3" %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <%# Service categories %>
+  <h3 class="mt-5">Nos services</h3>
+  <div class="d-flex justify-content-start custom-scroll mt-2", style="white-space: nowrap; overflow-x: auto;">
+    <a href="<%=professionals_path%>"  style="text-decoration:none; color: white;">
+      <div class="card-category p-5" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://res.cloudinary.com/dsbteudoz/image/upload/v1734016805/vitaly-gariev-HURf5iUtSQg-unsplash_haxcr5.jpg);">
+        <h4>Tous nos services</h4>
+      </div>
+    </a>
+    <% (0...@all_specialty.length).each do |i| %>
+      <% specialty = @all_specialty[i][:specialty]%>
+      <% photo = @all_specialty[i][:photo]%>
+      <% if @available_specialty.include?(specialty)%>
+        <a href="<%=professionals_path(specialty: specialty)%>" style="text-decoration:none; color: white;">
+          <div class="card-category p-5" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(<%=photo%>);">
+            <h4><%=specialty%></h4>
+          </div>
+        </a>
+      <% else %>
+        <a href="#" style="text-decoration:none; color: white; pointer-events: none;">
+          <div class="card-category p-5" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(<%=photo%>);">
+            <div class="d-inline text-center" >
+              <h4><%=specialty%></h4>
+              <p>Bientôt disponible</p>
+            </div>
+          </div>
+        </a>
+      <% end %>
+    <% end %>
+  </div>
+
+  <%# Add a service %>
+  <h3 class="mt-5 text-center">Vous aussi, vous souhaitez proposer un service ?</h3>
+  <div class="row d-flex justify-content-center align-items-center mt-4">
+    <div class="col-12 col-lg-5 text-center pe-5">
+      <img src="https://res.cloudinary.com/dsbteudoz/image/upload/v1734608983/guy-walking-with-dog-in-the-park_ltkcew.png" alt="Proposer un service">
+    </div>
+    <div class="col-12 col-lg-5" style="word-wrap: break-word; word-break: break-word; white-space: normal; text-align: justify;">
+      <h5>Vous adorez les animaux et vous avez des compétences à partager ?</h5>
+      <br>
+      <h5>Que vous soyez vétérinaire, comportementaliste, nutritionniste ou pet-sitter, Boop est fait pour vous ! </h5>
+      <br>
+      <h5>Rejoignez notre communauté et proposez vos services à des propriétaires d'animaux qui cherchent des solutions fiables et de confiance.</h5>
+
+      <h5>C’est simple, rapide, et vous pouvez faire une vraie différence dans la vie des animaux tout en développant votre activité. Inscrivez-vous maintenant et commencez à aider nos compagnons à quatre pattes !
+      </h5>
+      <div class="text-center">
+        <%= link_to "Proposer un service", new_professional_path, class: "btn btn-primary text-white mt-4 rounded-pill"%>
+      </div>
+
+    </div>
+
+  </div>
+
+  <%# appointments to come %>
+  <h3 class="mt-5 mb-4">Vos futurs rendez-vous</h3>
+  <% if user_signed_in? %>
+    <% if @appointments.exists? %>
+      <% @appointments.each do |appointment| %>
+        <a href="<%=professional_appointment_path(appointment.professional, appointment)%>" style="color: black; text-decoration: none;">
+          <div class="d-flex justify-content-center">
+            <div class="card mt-1 mb-4 shadow card-appointment" >
+              <div class="card-header bg-primary rounded-bottom shadow-sm">
+                <div class="d-flex justify-content-around fw-bold">
+                  <div class="d-flex align-items-center">
+                    <i class="fa-regular fa-calendar-days"></i>
+                    <p class="ms-3"><%= appointment.date.strftime("%d/%m/%Y") %></p>
+                  </div>
+                  <div class="d-flex align-items-center">
+                    <i class="fa-regular fa-clock ms-5"></i>
+                    <p class="ms-3"><%= appointment.start_time.strftime("%H:%M") %></p>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body d-flex justify-content-center align-items-center">
+                <%= image_tag url_for(appointment.professional.photo), alt:"Photo du professionnel", class:"small-rounded-circle"%>
+                <div class="d-flex flex-column ms-4">
+                  <p>
+                    Rendez-vous avec : <%= appointment.professional.name%>
+                  </p>
+                  <p>
+                    Lieu : <%= appointment.professional.address%>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </a>
+      <% end %>
+    <% else %>
+      <div class="d-flex justify-content-center align-items-center">
+        <div class="d-flex flex-column justify-content-center align-items-center", style="width: 50%;">
+          <p class="text-center">Vous n'avez pas de rendez-vous à venir.</p>
+          <img src="https://res.cloudinary.com/dsbteudoz/image/upload/v1733845850/owner-playing-with-pet-dog_vfnehl.png">
+        </div>
+      </div>
+    <% end %>
+  <% else %>
+    <div class="d-flex justify-content-center align-items-center">
+      <div class="d-flex flex-column justify-content-center align-items-center", style="width: 50%;">
+        <p class="text-center">Veuillez vous connecter pour voir vos rendez-vous.</p>
+        <%= link_to "Se connecter", new_user_session_path, class: "text-center btn btn-primary text-white"%>
+        <img src="https://res.cloudinary.com/dsbteudoz/image/upload/v1734099737/business-solution-removebg-preview_c0hr67.png">
+      </div>
+    </div>
+  <% end %>
+</div>

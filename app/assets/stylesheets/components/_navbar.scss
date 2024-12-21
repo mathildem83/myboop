@@ -1,0 +1,15 @@
+.navbar-lewagon {
+  justify-content: space-between;
+  background: $pink;
+  position: sticky;
+  top: 00px;
+  z-index: 200;
+}
+
+.navbar-lewagon .navbar-collapse {
+  flex-grow: 0;
+}
+
+.navbar-lewagon .navbar-brand img {
+  width: 100px;
+}

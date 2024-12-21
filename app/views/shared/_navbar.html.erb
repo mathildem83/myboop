@@ -1,0 +1,42 @@
+<div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
+  <div class="container-fluid">
+    <%= link_to "/", class: "navbar-brand mx-4" do %>
+      <%= image_tag "https://res.cloudinary.com/dsbteudoz/image/upload/v1733824548/Boop_-_LOGO_FINAL_BLANC_qgyjvj.png" %>
+    <% end %>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse text-end" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto d-flex align-items-center">
+        <% if user_signed_in? %>
+          <li class="nav-item active">
+            <%= link_to "Accueil", root_path, class: "nav-link text-white", style:"font-size: 20px" %>
+          </li>
+          <li class="nav-item active">
+            <%= link_to "Proposer un service", new_professional_path, class: "nav-link text-white mx-4", style:"font-size: 20px" %>
+          </li>
+          <li class="nav-item active">
+            <%= link_to "Contact", terms_path, class: "nav-link text-white", style:"font-size: 20px" %>
+          </li>
+          <li class="nav-item active">
+            <%= link_to "A propos", about_path, class: "nav-link text-white mx-4", style:"font-size: 20px" %>
+          </li>
+          <li class="nav-item dropdown d-flex align-items-end flex-column">
+            <a href="#" class="avatar" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <%= cl_image_tag current_user.photo.key, class: "avatar", alt: "dropdown menu", style: "object-fit: cover" %>
+            </a>
+            <div class="dropdown-menu dropdown-menu-end" style="width: fit-content;" aria-labelledby="navbarDropdown">
+              <%= link_to "Mes services", pro_index_user_path(current_user), class: "dropdown-item" %>
+              <%= link_to "Mon profil", user_path(current_user), class: "dropdown-item" %>
+              <%= link_to "Se déconnecter", destroy_user_session_path, data: {turbo_method: :delete}, class: "dropdown-item" %>
+            </div>
+          </li>
+        <% else %>
+          <li class="nav-item btn btn-primary rounded rounded-4">
+            <%= link_to "Se connecter", new_user_session_path, class: "nav-link text-white" %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>

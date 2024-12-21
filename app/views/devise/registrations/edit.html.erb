@@ -1,0 +1,55 @@
+<div>
+  <i class="fa-solid fa-chevron-left text-primary m-4"></i><%= link_to 'Retour', :back, class:"text-decoration-none" %>
+</div>
+
+<div class="container mt-1 bg-custom">
+  <div class="row justify-content-center">
+    <div class="col-11 col-md-6 col-lg-5 col-xl-4">
+      <div class="form-devise">
+        <i class="fa-solid fa-paw float-end text-primary"></i>
+        <h2>Mettre à jour mon profil </h2>
+
+        <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+          <%= f.error_notification %>
+
+          <div class="form-inputs">
+            <%= f.input :first_name, label: "Prénom" %>
+            <%= f.input :last_name, label: "Nom" %>
+            <%= f.input :photo, as: :file, label: "Photo" %>
+            <%= f.input :email,
+                        required: true,
+                        autofocus: true,
+                        readonly: true,
+                        hint: "Vous ne pouvez pas changer votre email" %>
+
+            <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+              <p>Actuellement en attente pour: <%= resource.unconfirmed_email %></p>
+            <% end %>
+
+            <%= f.input :password,
+                        label: "Mot de passe",
+                        hint: "Ne mettez rien si vous ne voulez pas changer",
+                        required: false,
+                        input_html: { autocomplete: "new-password" } %>
+            <%= f.input :password_confirmation,
+                        label: "Confirmation du mot de passe",
+                        required: false,
+                        input_html: { autocomplete: "new-password" } %>
+            <%= f.input :current_password,
+                        label: "Mot de passe actuel",
+                        hint: "Saisissez votre mot de passe actuel pour valider les changements",
+                        required: true,
+                        input_html: { autocomplete: "current-password" } %>
+          </div>
+
+          <div class="form-actions">
+            <%= f.button :submit, "Valider les changements",  class: "btn btn-primary" %>
+          </div>
+        <% end %>
+
+        <p class="mt-4">Supprimer mon compte</p>
+        <div><%= button_to "Supprimer mon compte", registration_path(resource_name), class: "btn btn-danger", data: { confirm: "Etes vous sûr?", turbo_confirm: "Etes vous sûr?" }, method: :delete %></div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,44 @@
+.grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+
+  // 480 taille téléphone
+    @media (max-width: 480px) {
+      grid-template-columns: 1fr;
+
+    }
+  }
+
+  // grid-index pro
+.grid-index {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+
+    // 768 taille tablette
+    @media (max-width: 768px) {
+           grid-template-columns: 1fr;
+        }
+  }
+
+.grid-map {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+
+    @media (max-width: 500px) {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      .map{
+        height: 80vh;
+      }
+    }
+  }
+
+
+@media all and (orientation: portrait){
+  .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      }
+}

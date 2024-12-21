@@ -1,0 +1,32 @@
+<div>
+  <%= render "shared/back"%>
+</div>
+<div class="container-all">
+  <div class="grid-map">
+    <div class="d-flex flex-column justify-content-center">
+      <% @professionals.each do |professional|%>
+        <div class="card_pro_index">
+          <div class="card_pro grid-index align-items-center">
+            <div>
+              <a href="<%=professional_path(professional)%>" class="text-decoration-none text-black mx-auto" style="width: 100%;">
+                <%= cl_image_tag professional.photo.key, class:"rounded-3 d-block mx-auto img-fluid", crop: :fill, style:"max-height: 200px" %>
+                <h2 class="text-center my-3"><%= professional.name %> </h2>
+                <div class="ms-2">
+                  <p>Specialité : <%= professional.specialty %></p>
+                  <p>Adresse : <%= professional.address %></p>
+                </div>
+                  <p class="text-start mx-2 mt-2" style="word-wrap: break-word; word-break: break-word; white-space: normal;"><%= professional.description %></p>
+              </a>
+            </div>
+            <%= render "shared/available_slots", professional: professional%>
+          </div>
+        </div>
+      <%end%>
+    </div>
+    <div class="map" style="border-radius: 8px; max-height: 100vh; position: sticky; top: 100px;"
+        data-controller="map"
+        data-map-markers-value="<%= @markers.to_json %>"
+        data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
+    </div>
+  </div>
+</div>

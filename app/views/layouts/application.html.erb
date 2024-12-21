@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Boop - Adopter avec soin, Accompagner avec amour </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <%= favicon_link_tag 'https://res.cloudinary.com/dsbteudoz/image/upload/v1733824548/boop_logo_asibkj.png' %>
+
+  </head>
+
+  <body>
+    <%= render "shared/navbar" %>
+    <%= render "shared/flashes" %>
+    <div class="pb-4">
+      <%= yield %>
+    </div>
+
+    <footer>
+     <%= render "shared/footer" %>
+    </footer>
+  </body>
+
+</html>
